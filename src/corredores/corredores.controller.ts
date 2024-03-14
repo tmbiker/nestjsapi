@@ -3,14 +3,13 @@ import { CorredoresService } from './corredores.service';
 import { NuevoCorredoresDto }  from './dto/nuevocorredores.dto'
 
 
-@Controller('corredores')
+@Controller('corre')
 export class CorredoresController {
 
     constructor(private corredoresService: CorredoresService){}
 
     @Post('nuevo')
     nuevoCorredores(@Body() nuevoCorredores: NuevoCorredoresDto){
-//        console.log(nuevoCorredores)
        return this.corredoresService.nuevoCorredores(nuevoCorredores)
     }
     
