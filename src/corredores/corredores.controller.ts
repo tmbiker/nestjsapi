@@ -7,15 +7,16 @@ import { NuevoCorredoresDto }  from './dto/nuevocorredores.dto'
 export class CorredoresController {
 
     constructor(private corredoresService: CorredoresService){}
+
+    @Post()
+    nuevoCorredores(@Body() nuevoCorredores: NuevoCorredoresDto){
+        console.log(nuevoCorredores)
+       return this.corredoresService.nuevoCorredores(nuevoCorredores)
+    }
     
     @Get(':doc_numero')
     getCorredores(@Param('doc_numero', ParseIntPipe) doc_numero: number){
         return this.corredoresService.getCorredores(doc_numero);
     }
 
-    @Post('nuevo')
-    nuevoCorredores(@Body() nuevoCorredores: NuevoCorredoresDto){
-        console.log(nuevoCorredores)
-       return this.corredoresService.nuevoCorredores(nuevoCorredores)
-    }
 }
