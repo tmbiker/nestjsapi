@@ -10,7 +10,7 @@ export class CorredoresController {
 
     @Post()
     nuevoCorredores(@Body() nuevoCorredores: NuevoCorredoresDto){
-        console.log(nuevoCorredores)
+//        console.log(nuevoCorredores)
        return this.corredoresService.nuevoCorredores(nuevoCorredores)
     }
     
