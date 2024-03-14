@@ -3,12 +3,12 @@ import { CorredoresService } from './corredores.service';
 import { NuevoCorredoresDto }  from './dto/nuevocorredores.dto'
 
 
-@Controller('corre')
+@Controller('corredores')
 export class CorredoresController {
 
     constructor(private corredoresService: CorredoresService){}
 
-    @Post('nuevo')
+    @Post('/nuevo')
     nuevoCorredores(@Body() nuevoCorredores: NuevoCorredoresDto){
        return this.corredoresService.nuevoCorredores(nuevoCorredores)
     }
