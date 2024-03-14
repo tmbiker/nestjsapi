@@ -14,7 +14,7 @@ export class CorredoresController {
        return this.corredoresService.nuevoCorredores(nuevoCorredores)
     }
     
-    @Get(':doc_numero')
+    @Get('buscar/:doc_numero')
     getCorredores(@Param('doc_numero', ParseIntPipe) doc_numero: number){
         return this.corredoresService.getCorredores(doc_numero);
     }
