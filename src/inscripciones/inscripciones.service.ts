@@ -1,6 +1,6 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository} from 'typeorm';
+import { Repository, MoreThan} from 'typeorm';
 import { Inscripciones } from './inscripciones.entity';
 import { CreateInscripcionesDto } from './dto/createInscripciones.dto';
 import { UpdateInscripcionesDto } from './dto/updateInscripciones.dto';
@@ -28,23 +28,16 @@ export class InscripcionesService {
 
     }
 
-    async getInscripciones(){
+    async getInscripciones(limit: number, offset: number){
 
         try {
+            const corredores    = "corredores2024";
+            const inscripciones = "inscripciones2024";
 
-            const inscripcionesFound = this.inscripcionesRepository
-            .createQueryBuilder("inscripcionesFound")
-            .select(["i.idregistro", "i.idtramite", "i.placa", "i.idcategoria", "i.pagado", "i.idequipo"])
-            .from(Inscripciones, "i")
-            .where("i.pagado != :pagado",{pagado: 0})
-            .leftJoinAndSelect('i.biker1', 'ito1', "ito1.idregistro = i.idcorredor")
-            .leftJoinAndSelect('i.biker2', 'ito2', "ito2.idcorredor = i.idcorredor")
-            .leftJoinAndSelect('i.equipo', 'equi', "equi.idequipo = i.idequipo")
-            .leftJoinAndSelect('i.categoria', 'ctg', "ctg.idcategoria = i.idcategoria")
-            .orderBy("i.idtramite")
-            .addOrderBy("i.pagado")
-            .getMany();
-            
+            const inscripcionesFound = this.inscripcionesRepository.query(
+                'SELECT CAST(i.idtramite AS CHARACTER) id, CAST(i.idtramite AS CHARACTER) idtramite, CAST(i.idcategoria AS CHARACTER) idcategoria, CAST(i.placa AS CHARACTER) placa, CAST(i.pagado AS CHARACTER) pagado, CAST(i.estado AS CHARACTER) estado, i.horalargada, CAST(c1.doc_numero AS CHARACTER) doc_numero1, c1.nombre as nombre1, c1.apellido as apellido1, c1.provincia as provincia1, c1.imagen as imagen1, CAST(c1.idequipo AS CHARACTER) idequipo1, e1.nombre as equipo1, CAST(c2.doc_numero AS CHARACTER) doc_numero2, c2.nombre as nombre2, c2.apellido as apellido2, c2.provincia as provincia2, c2.imagen as imagen2, CAST(c2.idequipo AS CHARACTER) idequipo2, e2.nombre as equipo2, ctg.categoria FROM ' + inscripciones + ' i INNER JOIN ' + corredores + ' c1 on c1.idregistro = i.idcorredor LEFT JOIN ' + corredores + ' c2 ON c2.idcorredor = i.idcorredor INNER JOIN categorias ctg on ctg.idcategoria = i.idcategoria left join equipos e1 ON e1.idregistro = c1.idequipo left join equipos e2 on e2.idequipo = c2.idequipo WHERE i.pagado != 0 GROUP BY i.idtramite ORDER BY i.idtramite LIMIT ? OFFSET ?;',
+                [limit, offset]
+                )
             return inscripcionesFound;
 
         } catch (error) {

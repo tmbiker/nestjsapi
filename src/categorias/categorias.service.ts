@@ -12,14 +12,9 @@ export class CategoriasService {
 
         try {
 
-            const categoriasFound = this.categoriasRepository
-            .createQueryBuilder("categoriasFound")
-            .select(["c.idcategoria", "c.categoria"])
-            .from(Categorias, "c")
-            .where("c.orden != 0")
-            .leftJoinAndSelect("c.inscripcion", "i", "i.idcategoria = c.idcategoria")
-            .orderBy("c.orden")
-            .getMany();
+            const categoriasFound = this.categoriasRepository.query(
+                'SELECT CAST(c.idcategoria as CHARACTER) id, "30" AS idfecha, "2024" AS anio, CAST(c.idcategoria AS CHARACTER) idcategoria, c.categoria AS nombre FROM categorias c WHERE c.orden != 0 ORDER BY c.orden_importancia;',
+            )
 
             return categoriasFound;
 

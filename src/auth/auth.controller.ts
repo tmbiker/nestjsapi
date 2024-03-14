@@ -5,14 +5,13 @@ import { Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService) {
 
-    }
+    constructor(private readonly authService: AuthService) { }
 
     @Post('login')
     async userLogin(@Body() userLoginDto: UserLoginDto, @Res() res: Response){
 
-        const{ token, biker } = await this.authService.login(userLoginDto);
+        const{token, biker} = await this.authService.login(userLoginDto);
 
         res.cookie('IsAuthenticated', true, { maxAge: 2000*60*60*1000 })
         res.cookie('Authentication', token, {
@@ -20,7 +19,7 @@ export class AuthController {
             maxAge: 2000*60*60*1000
         });
 
-        return res.send({success: true, biker });
+        return res.send({success: true, biker});
     }
 
 }

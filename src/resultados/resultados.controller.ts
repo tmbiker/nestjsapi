@@ -5,9 +5,9 @@ import { ResultadosService } from './resultados.service';
 export class ResultadosController {
     constructor(private resultadosService: ResultadosService){}
     
-    @Get(':idfecha')
-    getResultados(@Param('idfecha', ParseIntPipe) idfecha: number){
-        return this.resultadosService.getResultados(idfecha);
+    @Get(':idfecha/:anio/:limit/:offset')
+    getResultados(@Param('idfecha', ParseIntPipe) idfecha: number, @Param('anio', ParseIntPipe) anio: number, @Param('limit', ParseIntPipe) limit: number, @Param('offset', ParseIntPipe) offset: number){
+        return this.resultadosService.getResultados(idfecha, anio, limit, offset);
     }
 
 }

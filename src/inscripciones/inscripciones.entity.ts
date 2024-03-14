@@ -63,11 +63,7 @@ export class Inscripciones {
 
     @OneToOne(type => Inscriptos)
     @JoinColumn({name: 'idcorredor', referencedColumnName: "idregistro" })
-    biker1: Inscriptos[];
-
-    @OneToOne(type => Inscriptos)
-    @JoinColumn({name: 'idcorredor', referencedColumnName: "idcorredor" })
-    biker2: Inscriptos[];
+    biker: Inscriptos[];
 
     @ManyToOne(type => Equipos, equipos => equipos.inscripcion)
     @JoinColumn({name: 'idequipo'})

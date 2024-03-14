@@ -3,7 +3,7 @@ import { CategoriasService } from './categorias.service';
 
 @Controller('ctg')
 export class CategoriasController {
-    constructor(private readonly categoriasService: CategoriasService){}
+    constructor(private readonly categoriasService: CategoriasService){ }
     
     @Get()
     getCategorias(){

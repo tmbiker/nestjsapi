@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Inscriptos } from '../inscriptos/inscriptos.entity';
@@ -21,9 +21,12 @@ export class AuthService {
             .getOne();
 
         if(!biker){
+
             throw new UnauthorizedException('Sin Credenciales para Ingresar');
+
         } else {
-            const token = this.jwtService.signAsync({
+            
+            const token = await this.jwtService.signAsync({
                   email: biker.email,
                   doc_numero: biker.doc_numero
             })

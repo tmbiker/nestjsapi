@@ -1,8 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm";
-import { Inscripciones } from '../inscripciones/inscripciones.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity({name: 'corredores2024'})
-export class Inscriptos {
+@Entity({name: 'corredores'})
+export class Corredores {
     @PrimaryGeneratedColumn('increment')
     idregistro: number;
     @Column({select: false})
@@ -24,13 +23,13 @@ export class Inscriptos {
     @Column({select: false})
     codigo_postal: string;
     @Column({select: false})
-    c_telefono: number;
+    c_telefono: string;
     @Column({select: false})
-    telefono: number;
+    telefono: string;
     @Column({select: false})
-    c_celular: number;
+    c_celular: string;
     @Column({select: false})
-    celular: number;
+    celular: string;
     @Column()
     genero: string;
     @Column({select : false})
@@ -38,17 +37,16 @@ export class Inscriptos {
     @Column({select : false})
     email: string;
     @Column({select: false})
-    otros: string;
-    @Column({type: 'datetime', default: () => 'CURRENT_TIMESTAMP', select: false})
-    fecha_hora: string;
-    @Column({select: false})
     pais: string;
     @Column({select: false})
     imagen: string;
     @Column({select: false})
     idequipo: number;
+    @Column({select: false})
+    trofeo_mayor: number;
+    @Column({select: false})
+    medallas_general: number;
+    @Column({select: false})
+    medallas_categorias: number;
 
-    @OneToOne(type => Inscripciones)
-    @JoinColumn({name: 'idregistro', referencedColumnName: "idcorredor" })
-    idbiker: Inscripciones[];
 }

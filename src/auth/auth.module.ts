@@ -16,7 +16,7 @@ const configService = new ConfigService();
   imports: [
     TypeOrmModule.forFeature([Inscriptos]),
     JwtModule.register({
-      secret: configService.getOrThrow('JWT_KEY'),
+      secret: configService.getOrThrow<string>('JWT_KEY'),
       signOptions:{
         algorithm: 'HS256',
         expiresIn: '45d'

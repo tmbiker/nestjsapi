@@ -12,13 +12,9 @@ export class OrigenService {
 
         try {
 
-            const origenFound = this.origenRepository
-            .createQueryBuilder("origenFound")
-            .select(["o.id", "o.lugar", "o.siglas"])
-            .from(Origen, "o")
-            .orderBy("o.lugar")
-            .getMany();
-
+            const origenFound = this.origenRepository.query(
+                'SELECT CAST(o.id AS CHARACTER) id, o.lugar, o.siglas FROM origen o ORDER BY o.lugar ASC'
+            )
             return origenFound;
 
         } catch (error) {

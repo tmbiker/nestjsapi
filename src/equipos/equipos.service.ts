@@ -12,14 +12,9 @@ export class EquiposService {
 
         try {
 
-            const equiposFound = this.equiposRepository
-            .createQueryBuilder("equiposFound")
-            .select(["e.idequipo", "e.nombre", "e.provincia", "e.imagen"])
-            .from(Equipos, "e")
-            .where('e.idequipo != :idequipo',{idequipo: 0})
-            .orderBy("e.nombre")
-            .getMany();
-
+            const equiposFound = this.equiposRepository.query(
+                'SELECT CAST(e.idequipo AS CHARACTER) id, e.nombre, e.provincia, e.imagen FROM equipos e ORDER BY e.nombre ASC'
+            )
             return equiposFound;
 
         } catch (error) {

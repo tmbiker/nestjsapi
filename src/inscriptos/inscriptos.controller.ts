@@ -7,9 +7,9 @@ export class InscriptosController {
 
     constructor(private readonly inscriptosService: InscriptosService){}
     
-    @Get()
-    getInscriptos(){
-        return this.inscriptosService.getInscriptos();
+    @Get(':limit/:offset')
+    getInscriptos(@Param('limit', ParseIntPipe) limit: number, @Param('offset', ParseIntPipe) offset: number){
+        return this.inscriptosService.getInscriptos(limit, offset);
     }
 
     @Get(':idregistro')
