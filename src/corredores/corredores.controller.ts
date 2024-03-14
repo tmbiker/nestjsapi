@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseIntPipe, Post, Body } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Post, Body, Res } from '@nestjs/common';
 import { CorredoresService } from './corredores.service';
 import { NuevoCorredoresDto }  from './dto/nuevocorredores.dto'
 
@@ -8,7 +8,7 @@ export class CorredoresController {
 
     constructor(private corredoresService: CorredoresService){}
 
-    @Post()
+    @Post('nuevo')
     nuevoCorredores(@Body() nuevoCorredores: NuevoCorredoresDto){
 //        console.log(nuevoCorredores)
        return this.corredoresService.nuevoCorredores(nuevoCorredores)
