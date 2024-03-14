@@ -2,12 +2,12 @@ import { IsNotEmpty, IsNumber, IsOptional } from "class-validator";
 
 export class NuevoCorredoresDto {
     @IsOptional()
-    idcorredor: number;    
+    idcorredor: number    
     @IsNumber()
     @IsNotEmpty()
     doc_numero: number
     @IsOptional()
-    tipo_doc: string;
+    tipo_doc: string
     @IsNotEmpty()
     nombre: string
     @IsNotEmpty()
@@ -21,13 +21,13 @@ export class NuevoCorredoresDto {
     @IsOptional()
     codigo_postal: string
     @IsOptional()
-    c_telefono: string;
+    c_telefono: string
     @IsOptional()
-    telefono: string;
+    telefono: string
     @IsNotEmpty()
     email: string
     @IsOptional()
-    c_celular: string;
+    c_celular: string
     @IsNotEmpty()
     celular: string
     @IsOptional()
@@ -39,11 +39,11 @@ export class NuevoCorredoresDto {
     @IsNotEmpty()
     genero: string
     @IsNotEmpty()
-    fecha_nacimiento: Date;
+    fecha_nacimiento: string
     @IsOptional()
-    trofeo_mayor: number;
+    trofeo_mayor: number
     @IsOptional()
-    medallas_general: number;
+    medallas_general: number
     @IsOptional()
-    medallas_categorias: number;
+    medallas_categorias: number
 }
