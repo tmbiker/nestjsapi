@@ -13,8 +13,8 @@ export class CorredoresController {
         return this.corredoresService.getCorredores(doc_numero);
     }
 
-    @Post()
-    nuevoCorredores(@Body() nuevoCorredores: NuevoCorredoresDto){
+    @Post('nuevo')
+    async nuevoCorredores(@Body() nuevoCorredores: NuevoCorredoresDto){
         console.log(nuevoCorredores)
        return this.corredoresService.nuevoCorredores(nuevoCorredores)
     }
