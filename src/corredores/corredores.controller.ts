@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseIntPipe, Post, Body} from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Post, Body, Header} from '@nestjs/common';
 import { CorredoresService } from './corredores.service';
 import { NuevoCorredoresDto }  from './dto/nuevocorredores.dto'
 
@@ -11,6 +11,7 @@ export class CorredoresController {
     }
 
     @Post('/nuevo')
+    @Header('Cache-Control', 'none')
     create(): string {
         return 'This action adds a new cat';
     }
