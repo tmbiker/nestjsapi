@@ -9,21 +9,39 @@ export class CorredoresService {
 
     constructor(@InjectRepository(Corredores) private corredoresRepository: Repository<Corredores>){}
 
-    async nuevoCorredores(nuevoCorredores: NuevoCorredoresDto){
+    async nuevoCorredores(corredores: NuevoCorredoresDto){
+        
         const corredoresFound = await this.corredoresRepository.findOne({
             where: {
-                doc_numero: nuevoCorredores.doc_numero
+                doc_numero: corredores.doc_numero
             }
         })
         if (corredoresFound){
             return new HttpException("Corredor ya Existe", HttpStatus.CONFLICT)
         }
         
-        const nuevosInscriptos = this.corredoresRepository.create(nuevoCorredores);
+        const nuevoCorredores = this.corredoresRepository.create(corredores);
 
         return this.corredoresRepository.save(nuevoCorredores)
 
     }
+
+    async modificarCorredores(doc_numero: Number, corredores: NuevoCorredoresDto){
+        const corredoresFound = await this.corredoresRepository.findOne({
+            where: {
+                doc_numero: corredores.doc_numero
+            }
+        })
+        if (corredoresFound){
+            return new HttpException("Corredor ya Existe", HttpStatus.CONFLICT)
+        }
+        
+        const nuevoCorredores = this.corredoresRepository.create(corredores);
+
+        return this.corredoresRepository.save(corredores)
+
+    }
+
 
     async getCorredores(doc_numero: Number) {
         try {
