@@ -16,6 +16,7 @@ export class CorredoresService {
                 doc_numero: corredores.doc_numero
             }
         })
+
         if (corredoresFound){
             return new HttpException("Corredor ya Existe", HttpStatus.CONFLICT)
         }
@@ -26,19 +27,17 @@ export class CorredoresService {
 
     }
 
-    async modificarCorredores(doc_numero: Number, corredores: NuevoCorredoresDto){
-        const corredoresFound = await this.corredoresRepository.findOne({
-            where: {
-                doc_numero: corredores.doc_numero
-            }
-        })
-        if (corredoresFound){
-            return new HttpException("Corredor ya Existe", HttpStatus.CONFLICT)
-        }
-        
-        const nuevoCorredores = this.corredoresRepository.create(corredores);
+    async modificarCorredores(doc_numero: number, corredores: NuevoCorredoresDto){
+//        const corredoresFound = await this.corredoresRepository.findOne({
+//            where: {
+//                doc_numero: corredores.doc_numero
+//            }
+//        })
+//        if (corredoresFound){
+//            return new HttpException("Corredor ya Existe", HttpStatus.CONFLICT)
+//        }
 
-        return this.corredoresRepository.save(corredores)
+        return this.corredoresRepository.update({doc_numero}, corredores )
 
     }
 
