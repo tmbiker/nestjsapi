@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseIntPipe, Post, Body, Header} from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Post, Body, Header, ValidationPipe, UsePipes} from '@nestjs/common';
 import { CorredoresService } from './corredores.service';
 import { NuevoCorredoresDto }  from './dto/nuevocorredores.dto'
 
@@ -12,13 +12,10 @@ export class CorredoresController {
 
     @Post('nuevo')
     @Header('Cache-Control', 'none')
-    create(): string {
-        return 'This action adds a new cat';
+    @UsePipes(ValidationPipe)
+    async nuevoCorredores(@Body() nuevoCorredores: NuevoCorredoresDto){
+       return this.corredoresService.nuevoCorredores(nuevoCorredores)
     }
-
-    //async nuevoCorredores(@Body() nuevoCorredores: NuevoCorredoresDto){
-    //   return this.corredoresService.nuevoCorredores(nuevoCorredores)
-    //}
     
     @Get('buscar/:doc_numero')
     getCorredores(@Param('doc_numero', ParseIntPipe) doc_numero: number){
