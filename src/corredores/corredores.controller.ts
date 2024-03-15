@@ -10,7 +10,7 @@ export class CorredoresController {
 
     }
 
-    @Post('/nuevo')
+    @Post('nuevo')
     @Header('Cache-Control', 'none')
     create(): string {
         return 'This action adds a new cat';
