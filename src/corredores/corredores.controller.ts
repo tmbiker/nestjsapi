@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseIntPipe, Post, Body, Res } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Post, Body} from '@nestjs/common';
 import { CorredoresService } from './corredores.service';
 import { NuevoCorredoresDto }  from './dto/nuevocorredores.dto'
 
@@ -6,12 +6,18 @@ import { NuevoCorredoresDto }  from './dto/nuevocorredores.dto'
 @Controller('corredores')
 export class CorredoresController {
 
-    constructor(private corredoresService: CorredoresService){}
+    constructor(private corredoresService: CorredoresService){ 
+
+    }
 
     @Post('/nuevo')
-    nuevoCorredores(@Body() nuevoCorredores: NuevoCorredoresDto){
-       return this.corredoresService.nuevoCorredores(nuevoCorredores)
+    create(): string {
+        return 'This action adds a new cat';
     }
+
+    //async nuevoCorredores(@Body() nuevoCorredores: NuevoCorredoresDto){
+    //   return this.corredoresService.nuevoCorredores(nuevoCorredores)
+    //}
     
     @Get('buscar/:doc_numero')
     getCorredores(@Param('doc_numero', ParseIntPipe) doc_numero: number){
