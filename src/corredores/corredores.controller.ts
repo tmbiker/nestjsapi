@@ -3,7 +3,7 @@ import { CorredoresService } from './corredores.service';
 import { NuevoCorredoresDto }  from './dto/nuevocorredores.dto'
 
 
-@Controller('biker')
+@Controller('corredores')
 export class CorredoresController {
 
     constructor(private corredoresService: CorredoresService){ 

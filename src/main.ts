@@ -10,10 +10,10 @@ async function bootstrap() {
   const port = configService.getOrThrow('PORT');
   
   app.enableCors();
-  app.setGlobalPrefix('nestjsapi');
+//  app.setGlobalPrefix('nestjsapi');
   app.useGlobalPipes(new ValidationPipe());
 
-   await app.listen(port);
+  await app.listen(port);
 
 }
 
