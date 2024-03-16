@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, Req, Res, Next } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
@@ -9,12 +9,15 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.getOrThrow('PORT');
   
-  
-  app.setGlobalPrefix('/api/v1/');
+//  app.enableCors({
+//        "origin": "*",
+//        "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+//        "preflightContinue": false,
+//        "optionsSuccessStatus": 204
+//  });
+  app.enableCors();
+  app.setGlobalPrefix('api/v1');
   app.useGlobalPipes(new ValidationPipe());
-
   await app.listen(port);
-
 }
-
 bootstrap();
