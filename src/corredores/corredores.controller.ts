@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseIntPipe, Put, Post, Body, Header, ValidationPipe, UsePipes} from '@nestjs/common';
+import { Controller, Param, Body, Post, Put, Header, Get, ParseIntPipe, ValidationPipe, UsePipes} from '@nestjs/common';
 import { CorredoresService } from './corredores.service';
 import { NuevoCorredoresDto }  from './dto/nuevocorredores.dto'
 
