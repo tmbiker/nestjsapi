@@ -2,11 +2,9 @@ import { Controller, Param, Body, Post, Put, Header, Get, ParseIntPipe, Validati
 import { CorredoresService } from './corredores.service';
 import { NuevoCorredoresDto }  from './dto/nuevocorredores.dto';
 
-@Controller('corredores')
-export class CorredoresController {
-    constructor(private readonly corredoresService: CorredoresService){ 
+const express = require('express')
+const router = express.Router()
 
-    }
-
-
-}
+router.post('/nuevo', (req, res) => {
+    res.send('About Corredores')
+})
