@@ -16,7 +16,7 @@ async function bootstrap() {
 //        "optionsSuccessStatus": 204
 //  });
 
-  app.setGlobalPrefix('api/v1');
+  app.setGlobalPrefix('nestjsapi');
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
   const configService = app.get(ConfigService);

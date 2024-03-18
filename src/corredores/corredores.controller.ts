@@ -1,6 +1,7 @@
 import { Body, Controller, Param, Post, Put, Header, Get, ParseIntPipe, ValidationPipe, UsePipes, HttpCode, HttpStatus} from '@nestjs/common';
 import { NuevoCorredoresDto }  from './dto/nuevocorredores.dto';
 import { CorredoresService } from './corredores.service';
+import { ConsoleLogResponse } from '../decorators.ts/console.log.response.decorator';
 
 
 @Controller('corredores')
@@ -15,6 +16,7 @@ export class CorredoresController {
     }
 
     @Post('nuevo')
+    @ConsoleLogResponse()
     @Header('Cache-Control', 'none')
     @UsePipes(ValidationPipe)
     @HttpCode(HttpStatus.NO_CONTENT)
