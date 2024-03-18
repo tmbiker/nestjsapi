@@ -15,6 +15,7 @@ async function bootstrap() {
 //        "preflightContinue": false,
 //        "optionsSuccessStatus": 204
 //  });
+
   app.enableCors();
   app.setGlobalPrefix('api/v1');
   app.useGlobalPipes(new ValidationPipe());
