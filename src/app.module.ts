@@ -17,7 +17,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      
       isGlobal: true,
     }), DatabaseModule, InscripcionesModule, CategoriasModule, InscriptosModule, EquiposModule, ResultadosModule, AuthModule, OrigenModule, PlacasModule, WappModule, CarrerasCategoriasModule, CarrerasModule, CorredoresModule],
   controllers: [],
