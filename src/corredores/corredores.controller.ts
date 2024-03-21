@@ -3,7 +3,6 @@ import { NuevoCorredoresDto }  from './dto/nuevocorredores.dto';
 import { CorredoresService } from './corredores.service';
 import { ConsoleLogResponse } from '../decorators.ts/console.log.response.decorator';
 
-
 @Controller('corredores')
 export class CorredoresController {
     constructor(private readonly corredoresService: CorredoresService){ 
@@ -29,5 +28,4 @@ export class CorredoresController {
     modificarCorredores(@Param('doc_numero', ParseIntPipe) doc_numero: number, @Body() nuevoCorredores: NuevoCorredoresDto){
        return this.corredoresService.modificarCorredores(doc_numero, nuevoCorredores);
     }
-
 }
