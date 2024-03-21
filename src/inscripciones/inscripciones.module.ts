@@ -7,7 +7,7 @@ import { Inscripciones } from './inscripciones.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Inscripciones])],
   controllers: [InscripcionesController],
-  providers: [InscripcionesService]
+  providers: [InscripcionesService],
 })
 
 export class InscripcionesModule {}

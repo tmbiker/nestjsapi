@@ -7,7 +7,7 @@ import { CorredoresController } from './corredores.controller';
 @Module({
   imports: [TypeOrmModule.forFeature([Corredores])],
   controllers: [CorredoresController],
-  providers: [CorredoresService]
+  providers: [CorredoresService],
 })
 
 export class CorredoresModule {}
