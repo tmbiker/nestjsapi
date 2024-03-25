@@ -1,7 +1,8 @@
-import { Body, Controller, Param, Post, Put, Header, Get, ParseIntPipe, ValidationPipe, UsePipes, HttpCode, HttpStatus} from '@nestjs/common';
+import { Body, Controller, Param, Post, Res, Put, Header, Get, ParseIntPipe, ValidationPipe, UsePipes, HttpCode, HttpStatus} from '@nestjs/common';
 import { NuevoCorredoresDto }  from './dto/nuevocorredores.dto';
+import { ModificarCorredoresDto }  from './dto/modificarcorredores.dto';
 import { CorredoresService } from './corredores.service';
-import { ConsoleLogResponse } from '../decorators.ts/console.log.response.decorator';
+import { Response } from 'express';
 
 @Controller('corredores')
 export class CorredoresController {
@@ -10,22 +11,20 @@ export class CorredoresController {
     }
 
     @Get('buscar/:doc_numero')
-    getCorredores(@Param('doc_numero', ParseIntPipe) doc_numero: number){
+    async getCorredores(@Param('doc_numero', ParseIntPipe) doc_numero: number){
         return this.corredoresService.getCorredores(doc_numero);
     }
 
     @Post('nuevo')
-    @ConsoleLogResponse()
-    @Header('Cache-Control', 'none')
     @UsePipes(ValidationPipe)
-    @HttpCode(HttpStatus.NO_CONTENT)
-    nuevoCorredores(@Body() nuevoCorredores: NuevoCorredoresDto){
-       return this.corredoresService.nuevoCorredores(nuevoCorredores);
+    async nuevoCorredores(@Body() nuevoCorredoresDto: NuevoCorredoresDto, @Res() res: Response){
+        const{error, message, nuevoCorredores, statuscode} = await this.corredoresService.nuevoCorredores(nuevoCorredoresDto);
+        return res.status(statuscode).send({error: error, message: message, data: nuevoCorredores, statusCode: statuscode})
     }
 
     @Put('modificar/:doc_numero')
     @UsePipes(ValidationPipe)
-    modificarCorredores(@Param('doc_numero', ParseIntPipe) doc_numero: number, @Body() nuevoCorredores: NuevoCorredoresDto){
-       return this.corredoresService.modificarCorredores(doc_numero, nuevoCorredores);
+    async modificarCorredores(@Param('doc_numero', ParseIntPipe) doc_numero: number, @Body() modificarCorredores: ModificarCorredoresDto){
+       return this.corredoresService.modificarCorredores(doc_numero, modificarCorredores);
     }
 }

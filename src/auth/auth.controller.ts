@@ -19,7 +19,6 @@ export class AuthController {
             maxAge: 2000*60*60*1000
         });
 
-        return res.send({success: true, biker});
+        return res.send({token: token, message: "Autorizado", success: 1, biker: biker});
     }
-
 }

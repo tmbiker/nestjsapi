@@ -1,8 +1,7 @@
 import { IsNotEmpty, IsNumber, IsNumberString, IsOptional } from "class-validator";
 
-export class NuevoCorredoresDto {
+export class ModificarCorredoresDto {
     @IsNumber()
-    @IsNotEmpty()
     doc_numero: number
     @IsNotEmpty()
     nombre: string

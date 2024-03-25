@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsOptional } from "class-validator";
+import { IsNotEmpty, IsNumber, IsNumberString, IsOptional } from "class-validator";
 
 export class CreateInscriptosDto {
     idregistro: number;
@@ -34,7 +34,7 @@ export class CreateInscriptosDto {
 }
 
 export class UserLoginDto{
-    @IsNumber()
+    @IsNumberString()
     @IsNotEmpty()
     doc_numero: number;
     @IsNotEmpty()
