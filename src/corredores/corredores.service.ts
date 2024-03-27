@@ -4,12 +4,14 @@ import { Repository } from 'typeorm';
 import { NuevoCorredoresDto }  from './dto/nuevocorredores.dto';
 import { ModificarCorredoresDto }  from './dto/modificarcorredores.dto';
 import { Corredores } from './corredores.entity';
+import { Equipos } from '../equipos/equipos.entity';
 
 
 @Injectable()
 export class CorredoresService {
 
-    constructor(@InjectRepository(Corredores) private corredoresRepository: Repository<Corredores>){}
+    constructor(@InjectRepository(Corredores) private corredoresRepository: Repository<Corredores>,
+    @InjectRepository(Equipos) private equiposRepository: Repository<Equipos>){}
 
     async nuevoCorredores(corredoresDto: NuevoCorredoresDto){
 
@@ -41,7 +43,29 @@ export class CorredoresService {
             return new HttpException("Corredor No Existe", HttpStatus.CONFLICT)
         }
 
-        return this.corredoresRepository.update({doc_numero}, corredores)
+        const equipo = corredores.equipo;
+        var idequipo = 0;
+
+        if (equipo != "" && equipo != "Seleccionar"){
+            const equiposFound = await this.equiposRepository.findOne({
+                where: {
+                    nombre: corredores.equipo
+                }
+            })
+            if (equiposFound){
+                idequipo = equiposFound.idequipo
+            }
+        }
+
+        try {
+            const corredoresModificar = this.corredoresRepository.query(
+                'UPDATE corredores SET nombre = ?, apellido = ?, domicilio = ?, localidad = ?, provincia = ?, codigo_postal = ?, email = ?, celular = ?, idequipo = ?, genero = ?, fecha_nacimiento = ? WHERE doc_numero = ?',
+                [corredores.nombre, corredores.apellido, corredores.domicilio, corredores.localidad, corredores.provincia, corredores.codigo_postal, corredores.email, corredores.celular, idequipo, corredores.genero, corredores.fecha_nacimiento, corredores.doc_numero]
+            )
+            return corredoresModificar;
+        } catch (error) {
+            return new HttpException("Corredor No Existe", HttpStatus.NOT_FOUND)
+        }
 
     }
 
