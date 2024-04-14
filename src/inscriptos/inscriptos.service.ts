@@ -20,6 +20,7 @@ export class InscriptosService {
         if (inscriptosFound){
             return new HttpException("Inscripcion ya Existe", HttpStatus.CONFLICT)
         }
+        
         const nuevosInscriptos = this.inscriptosRepository.create(inscriptos);
         return this.inscriptosRepository.save(nuevosInscriptos)
     }

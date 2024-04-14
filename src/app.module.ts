@@ -13,12 +13,16 @@ import { CorredoresModule } from './corredores/corredores.module';
 import { PlacasModule } from './placas/placas.module';
 import { WappModule } from './wapp/wapp.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { CategoriasInscModule } from './categoriasinsc/categoriasinsc.module';
+import { PreciosModule } from './precios/precios.module';
+// import { MercadoPagoModule } from './mercadopago/mercadopago.module'
+import { InscripcionCorredorModule } from './inscripcioncorredor/inscripcioncorredor.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-    }), DatabaseModule, InscripcionesModule, CategoriasModule, InscriptosModule, EquiposModule, ResultadosModule, AuthModule, OrigenModule, PlacasModule, WappModule, CarrerasCategoriasModule, CarrerasModule, CorredoresModule],
+    }), DatabaseModule, InscripcionesModule, CategoriasModule, InscriptosModule, EquiposModule, ResultadosModule, AuthModule, OrigenModule, PlacasModule, WappModule, CarrerasCategoriasModule, CarrerasModule, CorredoresModule, CategoriasInscModule, PreciosModule, InscripcionCorredorModule],
   controllers: [],
   providers: [],
 })

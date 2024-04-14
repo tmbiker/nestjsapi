@@ -5,6 +5,7 @@ import { Inscripciones } from './inscripciones.entity';
 import { CreateInscripcionesDto } from './dto/createInscripciones.dto';
 import { UpdateInscripcionesDto } from './dto/updateInscripciones.dto';
 
+const tabla_inscripciones = process.env.INSCRIPCIONES
 
 @Injectable()
 export class InscripcionesService {
@@ -13,18 +14,23 @@ export class InscripcionesService {
 
     async createInscripciones(inscripciones: CreateInscripcionesDto){
 
-        const inscripcionesFound = await this.inscripcionesRepository.findOne({
-            where: {
-                idregistro: inscripciones.idregistro
-            }
-        })
-
-        if (inscripcionesFound){
-            return new HttpException("Inscripcion ya Existe", HttpStatus.CONFLICT)
-        }
-
         const newInscripciones = this.inscripcionesRepository.create(inscripciones);
-        return this.inscripcionesRepository.save(newInscripciones)
+        const newInscripcion = this.inscripcionesRepository.save(newInscripciones)
+
+        try {
+            const nuevoCorredor = this.inscripcionesRepository.query(
+                'SELECT CAST(c.idtramite AS CHARACTER) idtramite, CAST(c.idcorredor AS CHARACTER) idcorredor FROM ? c WHERE c.doc_numero = ? ORDER BY c.idregistro DESC LIMIT 1;',
+                [tabla_inscripciones]
+            )
+            
+            return {error: "Exito", message:"Grabado con Exito", nuevoCorredor, statuscode: 200};
+
+        } catch (error) {
+
+            const mensaje = new HttpException("Corredor1 No Grabado", HttpStatus.NOT_FOUND)
+
+            return {error: "noExito", message: mensaje, newInscripcion, statuscode: 400};
+        }
 
     }
 

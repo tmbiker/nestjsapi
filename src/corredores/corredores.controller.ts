@@ -27,4 +27,5 @@ export class CorredoresController {
     async modificarCorredores(@Param('doc_numero', ParseIntPipe) doc_numero: number, @Body() modificarCorredores: ModificarCorredoresDto){
        return this.corredoresService.modificarCorredores(doc_numero, modificarCorredores);
     }
+
 }

@@ -1,7 +1,8 @@
-import { Controller, Post, Body, Get, Param, ParseIntPipe, Delete, Patch } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, ParseIntPipe, Delete, Patch, Res } from '@nestjs/common';
 import { InscripcionesService } from './inscripciones.service';
 import { CreateInscripcionesDto } from './dto/createInscripciones.dto';
 import { UpdateInscripcionesDto } from './dto/updateInscripciones.dto';
+import { Response } from 'express';
 
 @Controller('inscripciones')
 
@@ -21,9 +22,10 @@ export class InscripcionesController {
         return this.inscripcionesService.getInscripcion(idregistro);
     }
 
-    @Post()
-    createInscripciones(@Body() nuevaInscripciones: CreateInscripcionesDto){
-        return this.inscripcionesService.createInscripciones(nuevaInscripciones)
+    @Post('inscripcion')
+    async createInscripciones(@Body() nuevaInscripciones: CreateInscripcionesDto, @Res() res: Response){
+        const{error, message, nuevoCorredor, statuscode} = await this.inscripcionesService.createInscripciones(nuevaInscripciones);
+        return res.status(statuscode).send({error: error, message: message, data: nuevoCorredor, statusCode: statuscode})
     }
 
     @Delete(':idregistro')

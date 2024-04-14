@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe, Req, Res, Next } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import morgan from 'morgan'
 
 async function bootstrap() {
   
@@ -13,7 +14,7 @@ async function bootstrap() {
 //        "preflightContinue": false,
 //        "optionsSuccessStatus": 204
 //  });
-
+  app.use(morgan('dev'))
   app.setGlobalPrefix('nestjsapi');
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
@@ -21,4 +22,5 @@ async function bootstrap() {
   const port = configService.getOrThrow('PORT');
   await app.listen(port);
 }
+
 bootstrap();

@@ -5,7 +5,7 @@ import { CategoriasService } from './categorias.service';
 export class CategoriasController {
     constructor(private readonly categoriasService: CategoriasService){ }
     
-    @Get()
+    @Get(':doc_numero1')
     getCategorias(){
         return this.categoriasService.getCategorias();
     }
