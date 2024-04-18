@@ -5,7 +5,7 @@ import { CategoriasService } from './categorias.service';
 export class CategoriasController {
     constructor(private readonly categoriasService: CategoriasService){ }
     
-    @Get(':doc_numero1')
+    @Get()
     getCategorias(){
         return this.categoriasService.getCategorias();
     }
@@ -14,5 +14,6 @@ export class CategoriasController {
     getCategoria(@Param('idcategoria', ParseIntPipe) idcategoria: number){
         return this.categoriasService.getCategoria(idcategoria);
     }
+
 
 }

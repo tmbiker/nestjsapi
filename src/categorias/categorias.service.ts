@@ -13,7 +13,7 @@ export class CategoriasService {
         try {
 
             const categoriasFound = this.categoriasRepository.query(
-                'SELECT CAST(c.idcategoria as CHARACTER) id, "30" AS idfecha, "2024" AS anio, CAST(c.idcategoria AS CHARACTER) idcategoria, c.categoria AS nombre FROM categorias c WHERE c.orden != 0 ORDER BY c.orden_importancia;',
+                'SELECT CAST(c.idcategoria as CHARACTER) id, "30" AS idfecha, "2024" AS anio, CAST(c.idcategoria AS CHARACTER) idcategoria, c.categoria AS nombre FROM categorias c WHERE c.app != 0 ORDER BY c.orden_importancia;',
             )
 
             return categoriasFound;

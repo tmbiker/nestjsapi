@@ -1,8 +1,9 @@
 import { NestFactory } from '@nestjs/core';
+import morgan from 'morgan'
 import { AppModule } from './app.module';
 import { ValidationPipe, Req, Res, Next } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import morgan from 'morgan'
+
 
 async function bootstrap() {
   
@@ -14,7 +15,7 @@ async function bootstrap() {
 //        "preflightContinue": false,
 //        "optionsSuccessStatus": 204
 //  });
-  app.use(morgan('dev'))
+  // app.use(morgan('dev'))
   app.setGlobalPrefix('nestjsapi');
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());

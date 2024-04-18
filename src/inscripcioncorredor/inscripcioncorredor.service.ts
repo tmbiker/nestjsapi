@@ -4,8 +4,6 @@ import { Repository } from 'typeorm';
 import { InscripcionNuevoCorredorDto } from './dto/inscripcionnuevocorredor.dto';
 import { Corredores2024 } from './inscripcioncorredor.entity';
 
-const tabla_corredores = process.env.CORREDORES
-
 @Injectable()
 export class InscripcionCorredorService {
 
@@ -14,19 +12,21 @@ export class InscripcionCorredorService {
     async inscripcionNuevoCorredor(inscripcionNuevoCorredorDto: InscripcionNuevoCorredorDto){
 
         const nuevoCorredor = this.inscripcionCorredorRepository.create(inscripcionNuevoCorredorDto);
-        const inscNuevoCorredor = this.inscripcionCorredorRepository.save(nuevoCorredor)
+        const inscNuevoCorredor = await this.inscripcionCorredorRepository.save(nuevoCorredor)
 
         try {
-            const nuevoCorredor = this.inscripcionCorredorRepository.query(
-                'SELECT CAST(c.idregistro AS CHARACTER) idcorredor, CAST(c.idregistro AS CHARACTER) idtramite FROM ? c WHERE c.doc_numero = ? ORDER BY c.idregistro DESC LIMIT 1;',
-                [tabla_corredores, inscripcionNuevoCorredorDto.doc_numero]
+            const nuevoCorredor = await this.inscripcionCorredorRepository.query(
+                'SELECT c.idregistro AS idcorredor, c.idregistro AS idtramite FROM corredores2024 c WHERE c.doc_numero = ? ORDER BY c.idregistro DESC LIMIT 1;',
+                [inscripcionNuevoCorredorDto.doc_numero]
             )
+
+            console.log(nuevoCorredor);
             
             return {error: "Exito", message:"Grabado con Exito", nuevoCorredor, statuscode: 200};
 
         } catch (error) {
 
-            const mensaje = new HttpException("Corredor1 No Grabado", HttpStatus.NOT_FOUND)
+            const mensaje = "Corredor No Grabado";
 
             return {error: "noExito", message: mensaje, nuevoCorredor, statuscode: 400};
         }

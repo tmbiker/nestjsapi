@@ -12,9 +12,9 @@ export class InscripcionesController {
 
     }
     
-    @Get(':limit/:offset')
-    getInscripciones(@Param('limit', ParseIntPipe) limit: number, @Param('offset', ParseIntPipe) offset: number){
-        return this.inscripcionesService.getInscripciones(limit, offset);
+    @Get('todas/:limit/:offset/:categoria')
+    getInscripciones(@Param('limit', ParseIntPipe) limit: number, @Param('offset', ParseIntPipe) offset: number, @Param('categoria') categoria){
+        return this.inscripcionesService.getInscripciones(limit, offset, categoria);
     }
 
     @Get(':idregistro')
